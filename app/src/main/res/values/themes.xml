@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <style name="Theme.Geneblock" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenAnimatedIcon">@drawable/geneblock_foreground</item>
+        <item name="windowSplashScreenBackground">
+            @color/background
+        </item>
 
-    <style name="Theme.Geneblock" parent="android:Theme.Material.Light.NoActionBar" />
+        <item name="postSplashScreenTheme">
+            @android:style/Theme.Material.Light.NoActionBar
+        </item>
+    </style>
 </resources>
