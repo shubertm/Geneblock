@@ -59,6 +59,8 @@ kotlin {
         commonMain {
             dependencies {
                 implementation(libs.kotlin.stdlib)
+                implementation(libs.ktor.client.core)
+                implementation(libs.ktor.client.content.negotiation)
                 // Add KMP dependencies here
             }
         }
@@ -74,6 +76,7 @@ kotlin {
                 // Add Android-specific dependencies here. Note that this source set depends on
                 // commonMain by default and will correctly pull the Android artifacts of any KMP
                 // dependencies declared in commonMain.
+                implementation(libs.ktor.client.jvm)
             }
         }
 
