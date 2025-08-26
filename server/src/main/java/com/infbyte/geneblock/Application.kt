@@ -1,5 +1,8 @@
 package com.infbyte.geneblock
 
+import com.infbyte.geneblock.plugins.configureHTTP
+import com.infbyte.geneblock.plugins.configureRouting
+import com.infbyte.geneblock.plugins.configureSerialization
 import io.ktor.server.application.Application
 import io.ktor.server.application.install
 import io.ktor.server.netty.EngineMain
@@ -10,5 +13,7 @@ fun main(args: Array<String>) {
 }
 
 fun Application.app() {
-
+    configureHTTP()
+    configureRouting()
+    configureSerialization()
 }
