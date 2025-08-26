@@ -20,6 +20,7 @@ dependencies {
     implementation(libs.ktor.server.netty)
     implementation(libs.ktor.server.metrics)
     implementation(libs.ktor.server.call.logging)
+    implementation(libs.logback)
     implementation(libs.ktor.json.serialization)
     implementation(libs.ktor.host.common)
     implementation(libs.ktor.cors)
