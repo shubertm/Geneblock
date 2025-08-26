@@ -15,6 +15,7 @@ kotlin {
 }
 
 dependencies {
+    implementation(project(":shared"))
     implementation(libs.ktor.server.core)
     implementation(libs.ktor.server.tests)
     implementation(libs.ktor.server.netty)
@@ -26,4 +27,7 @@ dependencies {
     implementation(libs.ktor.cors)
     implementation(libs.ktor.content.negotiation)
     implementation(libs.ktor.compression)
+
+    implementation(libs.postgresql)
+    implementation(libs.h2database)
 }
