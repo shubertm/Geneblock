@@ -30,27 +30,29 @@ class GenesisService(private val connection: Connection): Service<Block> {
 
     override suspend fun insert(item: Block) {
         withContext(iODispatcher) {
-            val statement = connection.prepareStatement(INSERT_BLOCK)
-            statement.setString(1, item.hash)
-            statement.setTimestamp(2, Timestamp(item.date))
-            statement.setInt(3, item.height)
-            statement.setInt(4, item.depth)
-            statement.setLong(5, item.distance)
-            statement.setFloat(6, item.capacity)
-            statement.setInt(7, item.size)
-            statement.setString(8, item.currency.name)
-            statement.setString(9, item.currency.code)
-            statement.setFloat(10, item.currency.amount)
-            statement.setFloat(11, item.value)
-            statement.setFloat(12, item.valueToday)
-            statement.setFloat(13, item.input.amount)
-            statement.setFloat(14, item.output.amount)
-            statement.setInt(15, item.transactions)
-            statement.setInt(16, item.inputs)
-            statement.setInt(17, item.outputs)
-            statement.setString(18, item.miner)
-            statement.setFloat(19, item.reward)
-            statement.executeUpdate()
+            try {
+                val statement = connection.prepareStatement(INSERT_BLOCK)
+                statement.setString(1, item.hash)
+                statement.setTimestamp(2, Timestamp(item.date))
+                statement.setInt(3, item.height)
+                statement.setInt(4, item.depth)
+                statement.setTimestamp(5, Timestamp(item.distance))
+                statement.setFloat(6, item.capacity)
+                statement.setInt(7, item.size)
+                statement.setString(8, item.currency.name)
+                statement.setString(9, item.currency.code)
+                statement.setFloat(10, item.currency.amount)
+                statement.setFloat(11, item.value)
+                statement.setFloat(12, item.valueToday)
+                statement.setFloat(13, item.input.amount)
+                statement.setFloat(14, item.output.amount)
+                statement.setInt(15, item.transactions)
+                statement.setInt(16, item.inputs)
+                statement.setInt(17, item.outputs)
+                statement.setString(18, item.miner)
+                statement.setFloat(19, item.reward)
+                statement.executeUpdate()
+            } catch (e: Exception) { e.printStackTrace() }
         }
     }
 
@@ -76,7 +78,7 @@ class GenesisService(private val connection: Connection): Service<Block> {
             val date = resultSet.getTimestamp(DATE).time
             val height = resultSet.getInt(HEIGHT)
             val depth = resultSet.getInt(DEPTH)
-            val distance = resultSet.getLong(DISTANCE)
+            val distance = resultSet.getTimestamp(DISTANCE).time
             val capacity = resultSet.getFloat(CAPACITY)
             val size = resultSet.getInt(SIZE)
             val currencyName = resultSet.getString(CURRENCY_NAME)
