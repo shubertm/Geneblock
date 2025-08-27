@@ -12,8 +12,11 @@ splashscreen = "1.0.1"
 runner = "1.6.2"
 core = "1.6.1"
 ktor = "3.1.2"
+logback = "1.5.18"
 room = "2.7.2"
 ksp = "2.2.10-2.0.2"
+postgres = "42.7.7"
+h2 = "2.3.232"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -61,6 +64,11 @@ ktor-client-js = { module = "io.ktor:ktor-client-js", version.ref = "ktor" }
 ktor-client-jvm = { module = "io.ktor:ktor-client-jvm", version.ref = "ktor" }
 ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
 ktor-client-auth = { module = "io.ktor:ktor-client-auth", version.ref = "ktor"}
+
+logback = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
+
+postgresql = { module = "org.postgresql:postgresql", version.ref = "postgres" }
+h2database = { module = "com.h2database:h2", version.ref = "h2" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
