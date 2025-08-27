@@ -1,5 +1,8 @@
 package com.infbyte.shared.models
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class Block(
     val hash: String,
     val date: Long,
