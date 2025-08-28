@@ -15,10 +15,13 @@ class GenesisService(private val connection: Connection): Service<Block> {
 
     private val iODispatcher = Dispatchers.IO
 
+    private val blockchainInfoService = BlockchainInfoService()
+
     init {
         CoroutineScope(iODispatcher).launch {
             init()
         }
+
     }
 
     override suspend fun init() {

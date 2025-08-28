@@ -30,4 +30,6 @@ dependencies {
 
     implementation(libs.postgresql)
     implementation(libs.h2database)
+
+    implementation(libs.ktor.client.content.negotiation)
 }
