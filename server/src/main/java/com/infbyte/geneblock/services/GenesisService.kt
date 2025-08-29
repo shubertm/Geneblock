@@ -1,5 +1,6 @@
 package com.infbyte.geneblock.services
 
+import blocks
 import com.infbyte.shared.models.Block
 import com.infbyte.shared.models.Currency
 import kotlinx.coroutines.CoroutineScope
@@ -10,18 +11,17 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.sql.Connection
 import java.sql.Timestamp
+import java.util.Date
 
 class GenesisService(private val connection: Connection): Service<Block> {
 
     private val iODispatcher = Dispatchers.IO
 
-    private val blockchainInfoService = BlockchainInfoService()
-
     init {
         CoroutineScope(iODispatcher).launch {
             init()
+            blocks.forEach { insert(it) }
         }
-
     }
 
     override suspend fun init() {
@@ -37,23 +37,12 @@ class GenesisService(private val connection: Connection): Service<Block> {
                 val statement = connection.prepareStatement(INSERT_BLOCK)
                 statement.setString(1, item.hash)
                 statement.setTimestamp(2, Timestamp(item.date))
-                statement.setInt(3, item.height)
-                statement.setInt(4, item.depth)
-                statement.setTimestamp(5, Timestamp(item.distance))
-                statement.setFloat(6, item.capacity)
-                statement.setInt(7, item.size)
-                statement.setString(8, item.currency.name)
-                statement.setString(9, item.currency.code)
-                statement.setFloat(10, item.currency.amount)
-                statement.setFloat(11, item.value)
-                statement.setFloat(12, item.valueToday)
-                statement.setFloat(13, item.input.amount)
-                statement.setFloat(14, item.output.amount)
-                statement.setInt(15, item.transactions)
-                statement.setInt(16, item.inputs)
-                statement.setInt(17, item.outputs)
-                statement.setString(18, item.miner)
-                statement.setFloat(19, item.reward)
+                statement.setInt(3, item.size)
+                statement.setString(4, item.currency.name)
+                statement.setString(5, item.currency.code)
+                statement.setInt(6, item.transactions)
+                statement.setString(7, item.miner)
+                statement.setFloat(8, item.reward)
                 statement.executeUpdate()
             } catch (e: Exception) { e.printStackTrace() }
         }
@@ -79,40 +68,19 @@ class GenesisService(private val connection: Connection): Service<Block> {
         while (resultSet.next()) {
             val hash = resultSet.getString(HASH)
             val date = resultSet.getTimestamp(DATE).time
-            val height = resultSet.getInt(HEIGHT)
-            val depth = resultSet.getInt(DEPTH)
-            val distance = resultSet.getTimestamp(DISTANCE).time
-            val capacity = resultSet.getFloat(CAPACITY)
             val size = resultSet.getInt(SIZE)
             val currencyName = resultSet.getString(CURRENCY_NAME)
             val currencyCode = resultSet.getString(CURRENCY_CODE)
-            val currencyAmount = resultSet.getFloat(CURRENCY_AMOUNT)
-            val value = resultSet.getFloat(VALUE)
-            val valueToday = resultSet.getFloat(VALUE_TODAY)
-            val inputAmount = resultSet.getFloat(INPUT)
-            val outputAmount = resultSet.getFloat(OUTPUT)
             val transactions = resultSet.getInt(TRANSACTIONS)
-            val inputs = resultSet.getInt(INPUTS)
-            val outputs = resultSet.getInt(OUTPUTS)
             val miner = resultSet.getString(MINER)
             val reward = resultSet.getFloat(REWARD)
 
             val block = Block(
                 hash,
                 date,
-                height,
-                depth,
-                distance,
-                capacity,
                 size,
-                Currency(currencyName, currencyCode, currencyAmount),
-                value,
-                valueToday,
-                Currency(currencyName, currencyCode, inputAmount),
-                Currency(currencyName, currencyCode, outputAmount),
+                Currency(currencyName, currencyCode),
                 transactions,
-                inputs,
-                outputs,
                 miner,
                 reward
             )
@@ -138,42 +106,20 @@ class GenesisService(private val connection: Connection): Service<Block> {
 
         const val HASH = "hash"
         const val DATE = "date"
-        const val HEIGHT = "height"
-        const val DEPTH = "depth"
-        const val DISTANCE = "distance"
-        const val CAPACITY = "capacity"
         const val SIZE = "size"
         const val CURRENCY_NAME = "currency_name"
         const val CURRENCY_CODE = "currency_code"
-        const val CURRENCY_AMOUNT = "currency_amount"
-        const val VALUE = "value"
-        const val VALUE_TODAY = "valueToday"
-        const val INPUT = "input"
-        const val OUTPUT = "output"
         const val TRANSACTIONS = "transactions"
-        const val INPUTS = "inputs"
-        const val OUTPUTS = "outputs"
         const val MINER = "miner"
         const val REWARD = "reward"
 
         private const val CREATE_TABLE = "CREATE TABLE $TABLE (" +
-                "$HASH $VARCHAR PRIMARY KEY, " +
+                "$HASH $VARCHAR, " +
                 "$DATE $TIMESTAMP, " +
-                "$HEIGHT $SERIAL, " +
-                "$DEPTH $SERIAL, " +
-                "$DISTANCE $TIMESTAMP, " +
-                "$CAPACITY $SERIAL, " +
                 "$SIZE $SERIAL, " +
                 "$CURRENCY_NAME $VARCHAR, " +
                 "$CURRENCY_CODE $VARCHAR, " +
-                "$CURRENCY_AMOUNT $SERIAL, " +
-                "$VALUE $SERIAL, " +
-                "$VALUE_TODAY $SERIAL, " +
-                "$INPUT $SERIAL, " +
-                "$OUTPUT $SERIAL, " +
                 "$TRANSACTIONS $SERIAL, " +
-                "$INPUTS $SERIAL, " +
-                "$OUTPUTS $SERIAL, " +
                 "$MINER $VARCHAR, " +
                 "$REWARD $SERIAL" +
                 ");"
@@ -181,24 +127,13 @@ class GenesisService(private val connection: Connection): Service<Block> {
         private const val INSERT_BLOCK = "INSERT INTO $TABLE (" +
                 "$HASH, " +
                 "$DATE, " +
-                "$HEIGHT, " +
-                "$DEPTH, " +
-                "$DISTANCE, " +
-                "$CAPACITY, " +
                 "$SIZE, " +
                 "$CURRENCY_NAME, " +
                 "$CURRENCY_CODE, " +
-                "$CURRENCY_AMOUNT, " +
-                "$VALUE, " +
-                "$VALUE_TODAY, " +
-                "$INPUT, " +
-                "$OUTPUT, " +
                 "$TRANSACTIONS, " +
-                "$INPUTS, " +
-                "$OUTPUTS, " +
                 "$MINER, " +
                 REWARD +
-                ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"
+                ") VALUES (?, ?, ?, ?, ?, ?, ?, ?);"
 
         private const val SELECT_BLOCKS = "SELECT * FROM $TABLE"
     }

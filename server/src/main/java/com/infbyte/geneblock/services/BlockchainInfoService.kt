@@ -27,9 +27,7 @@ class BlockchainInfoService {
     }
 
     private suspend fun init() {
-        val response = ktorHttpClient.get("https://blockchain.info/rawblock/$BTC_GENESIS_HASH") {
-            contentType(ContentType.Application.Json)
-        }
+        val response = ktorHttpClient.get("https://blockchain.info/rawblock/$BTC_GENESIS_HASH")
         val body = response.bodyAsText()
         val bitcoinRawBlock = Json.decodeFromString<BitcoinRawBlock>(body)
     }

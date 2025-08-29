@@ -5,6 +5,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class Currency(
     val name: String,
-    val code: String,
-    val amount: Float
+    val code: String
 )
