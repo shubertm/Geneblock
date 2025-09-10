@@ -4,9 +4,7 @@ import io.ktor.server.application.Application
 import java.sql.Connection
 import java.sql.DriverManager
 
-fun Application.configureDatabase(embedded: Boolean = false): Connection {
-    return connectToPostgres(embedded)
-}
+fun Application.configureDatabase(embedded: Boolean = false): Connection = connectToPostgres(embedded)
 
 fun Application.connectToPostgres(embedded: Boolean = false): Connection {
     Class.forName("org.postgresql.Driver")

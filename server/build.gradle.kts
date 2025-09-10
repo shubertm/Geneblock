@@ -1,8 +1,11 @@
+import com.android.build.gradle.internal.tasks.factory.dependsOn
+
 plugins {
     id("java-library")
     alias(libs.plugins.jetbrains.kotlin.jvm)
     alias(libs.plugins.ktor)
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.gradle.ktlint)
 }
 java {
     sourceCompatibility = JavaVersion.VERSION_11
@@ -33,3 +36,6 @@ dependencies {
 
     implementation(libs.ktor.client.content.negotiation)
 }
+
+tasks.compileKotlin.dependsOn("ktlintCheck")
+tasks.ktlintCheck.dependsOn("ktlintFormat")

@@ -11,7 +11,7 @@ data class Block(
     val currency: Currency,
     val transactions: Int,
     val miner: String,
-    val reward: Float
+    val reward: Float,
 ) {
     private var distance: Long = 0L
 

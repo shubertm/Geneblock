@@ -7,4 +7,5 @@ plugins {
     alias(libs.plugins.android.kotlin.multiplatform.library) apply false
     alias(libs.plugins.jetbrains.kotlin.jvm) apply false
     alias(libs.plugins.google.ksp) apply false
+    alias(libs.plugins.gradle.ktlint) apply false
 }
