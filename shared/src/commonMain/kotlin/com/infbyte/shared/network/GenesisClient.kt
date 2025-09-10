@@ -20,9 +20,10 @@ class GenesisClient: Client<Block> {
         }
     }
 
-    override fun getAll(): Flow<List<Block>> = flow {
-        val response = httpClient.get(ALL_BLOCKS)
-        val blocks: List<Block> = response.body()
-        emit(blocks)
-    }
+    override fun getAll(): Flow<List<Block>> =
+        flow {
+            val response = httpClient.get(ALL_BLOCKS)
+            val blocks: List<Block> = response.body()
+            emit(blocks)
+        }
 }

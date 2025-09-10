@@ -1,9 +1,32 @@
+import java.util.Properties
+
+import com.android.build.gradle.internal.tasks.factory.dependsOn
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.google.ksp)
+    alias(libs.plugins.gradle.ktlint)
 }
+
+val properties: Properties = Properties()
+val propertiesFile: File = rootProject.file("local.properties")
+if (propertiesFile.exists()) {
+    properties.load(propertiesFile.inputStream())
+}
+
+val testBannerAdUnitId: String? = properties.getProperty("test.banner.ad.unit.id")
+val bannerAdUnitId: String? = properties.getProperty("banner.ad.unit.id")
+val banner1AdUnitId: String? = properties.getProperty("banner.1.ad.unit.id")
+val admobAppId: String? = properties.getProperty("admob.app.id")
+val geneKeyAlias: String? = properties.getProperty("key.alias")
+val signingKeyStorePass: String? = properties.getProperty("key.store.pass")
+val keyPass: String? = properties.getProperty("key.pass")
+val localVersion: String? = properties.getProperty("local.version")
+val geneVersionCode: Int =
+    properties.getProperty("local.version.code")?.toInt()
+        ?: System.getenv("RELEASES")?.toInt() ?: 0
 
 android {
     namespace = "com.infbyte.geneblock"
@@ -13,8 +36,8 @@ android {
         applicationId = "com.infbyte.geneblock"
         minSdk = 24
         targetSdk = 35
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = geneVersionCode + 1
+        versionName = System.getenv("VERSION_NAME") ?: localVersion
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -24,7 +47,7 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
     }
@@ -68,3 +91,6 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 }
+
+tasks.preBuild.dependsOn("ktlintCheck")
+tasks.ktlintCheck.dependsOn("ktlintFormat")

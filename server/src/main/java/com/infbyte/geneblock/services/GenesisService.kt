@@ -11,10 +11,10 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.sql.Connection
 import java.sql.Timestamp
-import java.util.Date
 
-class GenesisService(private val connection: Connection): Service<Block> {
-
+class GenesisService(
+    private val connection: Connection,
+) : Service<Block> {
     private val iODispatcher = Dispatchers.IO
 
     init {
@@ -44,7 +44,9 @@ class GenesisService(private val connection: Connection): Service<Block> {
                 statement.setString(7, item.miner)
                 statement.setFloat(8, item.reward)
                 statement.executeUpdate()
-            } catch (e: Exception) { e.printStackTrace() }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
     }
 
@@ -60,35 +62,37 @@ class GenesisService(private val connection: Connection): Service<Block> {
         TODO("Not yet implemented")
     }
 
-    override fun getAll(): Flow<List<Block>>  = flow {
-        val blocks = mutableListOf<Block>()
-        val statement = connection.prepareStatement(SELECT_BLOCKS)
-        val resultSet = statement.executeQuery()
+    override fun getAll(): Flow<List<Block>> =
+        flow {
+            val blocks = mutableListOf<Block>()
+            val statement = connection.prepareStatement(SELECT_BLOCKS)
+            val resultSet = statement.executeQuery()
 
-        while (resultSet.next()) {
-            val hash = resultSet.getString(HASH)
-            val date = resultSet.getTimestamp(DATE).time
-            val size = resultSet.getInt(SIZE)
-            val currencyName = resultSet.getString(CURRENCY_NAME)
-            val currencyCode = resultSet.getString(CURRENCY_CODE)
-            val transactions = resultSet.getInt(TRANSACTIONS)
-            val miner = resultSet.getString(MINER)
-            val reward = resultSet.getFloat(REWARD)
+            while (resultSet.next()) {
+                val hash = resultSet.getString(HASH)
+                val date = resultSet.getTimestamp(DATE).time
+                val size = resultSet.getInt(SIZE)
+                val currencyName = resultSet.getString(CURRENCY_NAME)
+                val currencyCode = resultSet.getString(CURRENCY_CODE)
+                val transactions = resultSet.getInt(TRANSACTIONS)
+                val miner = resultSet.getString(MINER)
+                val reward = resultSet.getFloat(REWARD)
 
-            val block = Block(
-                hash,
-                date,
-                size,
-                Currency(currencyName, currencyCode),
-                transactions,
-                miner,
-                reward
-            )
+                val block =
+                    Block(
+                        hash,
+                        date,
+                        size,
+                        Currency(currencyName, currencyCode),
+                        transactions,
+                        miner,
+                        reward,
+                    )
 
-            blocks.add(block)
+                blocks.add(block)
+            }
+            emit(blocks)
         }
-        emit(blocks)
-    }
 
     private fun exists(): Boolean {
         val meta = connection.metaData
@@ -113,7 +117,8 @@ class GenesisService(private val connection: Connection): Service<Block> {
         const val MINER = "miner"
         const val REWARD = "reward"
 
-        private const val CREATE_TABLE = "CREATE TABLE $TABLE (" +
+        private const val CREATE_TABLE =
+            "CREATE TABLE $TABLE (" +
                 "$HASH $VARCHAR, " +
                 "$DATE $TIMESTAMP, " +
                 "$SIZE $SERIAL, " +
@@ -124,7 +129,8 @@ class GenesisService(private val connection: Connection): Service<Block> {
                 "$REWARD $SERIAL" +
                 ");"
 
-        private const val INSERT_BLOCK = "INSERT INTO $TABLE (" +
+        private const val INSERT_BLOCK =
+            "INSERT INTO $TABLE (" +
                 "$HASH, " +
                 "$DATE, " +
                 "$SIZE, " +
