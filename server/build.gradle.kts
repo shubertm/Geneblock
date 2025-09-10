@@ -7,6 +7,20 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.gradle.ktlint)
 }
+
+group = "com.infbyte.geneblock"
+version = "1.0.0"
+
+application {
+    mainClass.set("com.infbyte.geneblock.ApplicationKt")
+}
+
+ktor {
+    fatJar {
+        archiveFileName.set("geneblock.jar")
+    }
+}
+
 java {
     sourceCompatibility = JavaVersion.VERSION_11
     targetCompatibility = JavaVersion.VERSION_11
