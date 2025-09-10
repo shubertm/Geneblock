@@ -123,7 +123,7 @@ class GenesisService(
                 "$DATE $TIMESTAMP, " +
                 "$SIZE $SERIAL, " +
                 "$CURRENCY_NAME $VARCHAR, " +
-                "$CURRENCY_CODE $VARCHAR, " +
+                "$CURRENCY_CODE $VARCHAR PRIMARY KEY, " +
                 "$TRANSACTIONS $SERIAL, " +
                 "$MINER $VARCHAR, " +
                 "$REWARD $SERIAL" +

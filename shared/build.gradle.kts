@@ -64,7 +64,11 @@ kotlin {
         commonMain {
             dependencies {
                 implementation(libs.ktor.client.core)
+                implementation(libs.ktor.client.cio)
                 implementation(libs.ktor.client.content.negotiation)
+                implementation(libs.ktor.json.serialization)
+
+                implementation(libs.koin.core)
                 // Add KMP dependencies here
             }
         }
