@@ -15,7 +15,7 @@ fun Application.configureRouting(dbConnection: Connection) {
 
     routing {
         get("/") {
-          call.respondText("Welcome to Geneblock, back to where the Blockchain begun")
+            call.respondText("Welcome to Geneblock, back to where the Blockchain begun")
         }
 
         genesisRouting(genesisService)

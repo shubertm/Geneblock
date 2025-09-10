@@ -6,19 +6,17 @@ import io.ktor.client.plugins.HttpTimeout
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.request.get
 import io.ktor.client.statement.bodyAsText
-import io.ktor.http.ContentType
-import io.ktor.http.contentType
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
 
 class BlockchainInfoService {
-
-    private val ktorHttpClient = HttpClient {
-        install(ContentNegotiation)
-        install(HttpTimeout) { requestTimeoutMillis = 5000 }
-    }
+    private val ktorHttpClient =
+        HttpClient {
+            install(ContentNegotiation)
+            install(HttpTimeout) { requestTimeoutMillis = 5000 }
+        }
 
     init {
         CoroutineScope(Dispatchers.IO).launch {

@@ -1,7 +1,10 @@
+import com.android.build.gradle.internal.tasks.factory.dependsOn
+
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.android.kotlin.multiplatform.library)
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.gradle.ktlint)
 }
 
 kotlin {
@@ -93,5 +96,8 @@ kotlin {
             }
         }
     }
-
 }
+
+tasks.androidPreBuild.dependsOn("ktlintCheck")
+tasks["compileKotlinJvm"].dependsOn("ktlintCheck")
+tasks.ktlintCheck.dependsOn("ktlintFormat")
