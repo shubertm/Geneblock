@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import com.infbyte.geneblock.presentation.screens.MainScreen
 import com.infbyte.geneblock.ui.theme.GeneblockTheme
 
 class MainActivity : ComponentActivity() {
@@ -21,9 +22,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             GeneblockTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-
-                }
+                 MainScreen()
             }
         }
     }
