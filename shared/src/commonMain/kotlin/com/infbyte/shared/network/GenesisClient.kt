@@ -9,18 +9,19 @@ import io.ktor.client.request.get
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-class GenesisClient: Client<Block> {
-
-    private val httpClient = HttpClient {
-        install(ContentNegotiation)
-        install(HttpTimeout) {
-            requestTimeoutMillis = 2000
+class GenesisClient : Client<Block> {
+    private val httpClient =
+        HttpClient {
+            install(ContentNegotiation)
+            install(HttpTimeout) {
+                requestTimeoutMillis = 2000
+            }
         }
-    }
 
-    override fun getAll(): Flow<List<Block>> = flow {
-        val response = httpClient.get(ALL_BLOCKS)
-        val blocks: List<Block> = response.body()
-        emit(blocks)
-    }
+    override fun getAll(): Flow<List<Block>> =
+        flow {
+            val response = httpClient.get(ALL_BLOCKS)
+            val blocks: List<Block> = response.body()
+            emit(blocks)
+        }
 }
