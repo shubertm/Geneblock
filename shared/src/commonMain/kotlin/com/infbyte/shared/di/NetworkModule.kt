@@ -5,6 +5,7 @@ import com.infbyte.shared.network.Client
 import com.infbyte.shared.network.GenesisClient
 import org.koin.dsl.module
 
-val networkModule = module {
-    single<Client<Block>> { GenesisClient() }
-}
+val networkModule =
+    module {
+        single<Client<Block>> { GenesisClient() }
+    }

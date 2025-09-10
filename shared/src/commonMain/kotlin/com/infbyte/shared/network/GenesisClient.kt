@@ -11,14 +11,14 @@ import io.ktor.serialization.kotlinx.json.json
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-class GenesisClient: Client<Block> {
-
-    private val httpClient = HttpClient(CIO) {
-        install(ContentNegotiation) { json() }
-        install(HttpTimeout) {
-            requestTimeoutMillis = 2000
+class GenesisClient : Client<Block> {
+    private val httpClient =
+        HttpClient(CIO) {
+            install(ContentNegotiation) { json() }
+            install(HttpTimeout) {
+                requestTimeoutMillis = 2000
+            }
         }
-    }
 
     override fun getAll(): Flow<List<Block>> =
         flow {

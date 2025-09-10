@@ -1,6 +1,5 @@
-import java.util.Properties
-
 import com.android.build.gradle.internal.tasks.factory.dependsOn
+import java.util.Properties
 
 plugins {
     alias(libs.plugins.android.application)

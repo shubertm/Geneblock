@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -27,29 +26,35 @@ import com.infbyte.shared.models.Currency
 import java.util.Date
 
 @Composable
-fun Block(block: Block, onClick:() -> Unit = {}) {
+fun Block(
+    block: Block,
+    onClick: () -> Unit = {},
+) {
     Row(
-        Modifier.fillMaxWidth().padding(8.dp).background(MaterialTheme.colorScheme.background)
+        Modifier
+            .fillMaxWidth()
+            .padding(8.dp)
+            .background(MaterialTheme.colorScheme.background)
             .clip(RoundedCornerShape(8.dp))
             .clickable { onClick() },
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         Image(
             painterResource(R.drawable.ic_btc),
             "",
-            Modifier.padding(8.dp).size(48.dp)
+            Modifier.padding(8.dp).size(48.dp),
         )
         Column(
             Modifier.fillMaxWidth().padding(8.dp).weight(1f),
-            verticalArrangement = Arrangement.Center
+            verticalArrangement = Arrangement.Center,
         ) {
             Text(block.currency.name, style = MaterialTheme.typography.titleMedium)
-            Text(            Date(block.date).toString(), style = MaterialTheme.typography.labelSmall)
+            Text(Date(block.date).toString(), style = MaterialTheme.typography.labelSmall)
         }
         Text(
             block.currency.code,
             Modifier.wrapContentWidth().padding(8.dp),
-            style = MaterialTheme.typography.titleSmall
+            style = MaterialTheme.typography.titleSmall,
         )
     }
 }

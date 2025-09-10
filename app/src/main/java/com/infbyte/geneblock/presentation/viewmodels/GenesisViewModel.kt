@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 
 data class GenesisState(
     val currentBlock: Block = Block(),
-    val allBlocks: List<Block> = listOf()
+    val allBlocks: List<Block> = listOf(),
 ) {
     companion object {
         val INITIAL_STATE = GenesisState()
@@ -20,9 +20,8 @@ data class GenesisState(
 }
 
 class GenesisViewModel(
-    private val genesisRepo: Repo
-): ViewModel() {
-
+    private val genesisRepo: Repo,
+) : ViewModel() {
     var state by mutableStateOf(GenesisState.INITIAL_STATE)
         private set
 

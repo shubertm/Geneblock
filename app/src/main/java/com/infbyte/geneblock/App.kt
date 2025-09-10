@@ -6,7 +6,7 @@ import com.infbyte.geneblock.di.viewModelModule
 import com.infbyte.shared.di.networkModule
 import org.koin.core.context.startKoin
 
-class App: Application() {
+class App : Application() {
     override fun onCreate() {
         super.onCreate()
         startKoin {

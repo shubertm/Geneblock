@@ -1,7 +1,6 @@
 package com.infbyte.geneblock.presentation.screens
 
 import androidx.compose.foundation.layout.navigationBarsPadding
-import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -21,11 +20,12 @@ fun MainScreen() {
     }
 
     Scaffold(
-        Modifier.navigationBarsPadding()
+        Modifier.navigationBarsPadding(),
     ) { innerPadding ->
         val navController = rememberNavController()
         NavHost(
-            navController, Screens.BLOCKS
+            navController,
+            Screens.BLOCKS,
         ) {
             composable(Screens.BLOCKS) {
                 BlocksScreen(genesisViewModel.state.allBlocks)

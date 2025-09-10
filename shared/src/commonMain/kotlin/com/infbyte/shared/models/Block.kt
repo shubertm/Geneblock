@@ -11,7 +11,7 @@ data class Block(
     val currency: Currency = Currency(),
     val transactions: Int = 0,
     val miner: String = "",
-    val reward: Float = 0F
+    val reward: Float = 0F,
 ) {
     private var distance: Long = 0L
     var iconResId: Int? = null
