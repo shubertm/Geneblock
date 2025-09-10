@@ -30,7 +30,7 @@ fun MainScreen() {
             Modifier.padding(
                 top = innerPadding.calculateTopPadding(),
                 bottom = innerPadding.calculateBottomPadding()
-            )
+            ),
         ) {
             composable(Screens.BLOCKS) {
                 BlocksScreen(genesisViewModel.state.allBlocks)
