@@ -29,7 +29,7 @@ fun MainScreen() {
             Screens.BLOCKS,
             Modifier.padding(
                 top = innerPadding.calculateTopPadding(),
-                bottom = innerPadding.calculateBottomPadding()
+                bottom = innerPadding.calculateBottomPadding(),
             ),
         ) {
             composable(Screens.BLOCKS) {
