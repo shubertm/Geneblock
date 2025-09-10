@@ -20,7 +20,7 @@ jobs:
       - name: Decode Keystore
         run: |
           echo ${{ secrets.RELEASE_SIGNING_KEYSTORE }} > base64_keystore.txt
-          base64 -d base64_keystore.txt > ./app/amuzic_release_keystore.jks
+          base64 -d base64_keystore.txt > ./app/gene_release_keystore.jks
 
       - name: Validate Gradle Wrapper
         uses: gradle/actions/wrapper-validation@v3
