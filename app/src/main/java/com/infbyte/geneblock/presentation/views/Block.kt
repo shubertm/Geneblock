@@ -20,7 +20,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.infbyte.geneblock.R
 import com.infbyte.shared.models.Block
 import com.infbyte.shared.models.Currency
 import java.util.Date
@@ -40,7 +39,7 @@ fun Block(
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Image(
-            painterResource(R.drawable.ic_btc),
+            painterResource(block.iconResId!!),
             "",
             Modifier.padding(8.dp).size(48.dp),
         )

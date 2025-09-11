@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.infbyte.geneblock.R
 import com.infbyte.geneblock.data.repo.Repo
 import com.infbyte.shared.models.Block
 import kotlinx.coroutines.flow.collectLatest
@@ -25,10 +26,24 @@ class GenesisViewModel(
     var state by mutableStateOf(GenesisState.INITIAL_STATE)
         private set
 
+    private val iconResIds =
+        mapOf<String, Int>(
+            "BTC" to R.drawable.ic_btc,
+            "BCH" to R.drawable.ic_bch,
+            "ETH" to R.drawable.ic_eth,
+            "LTC" to R.drawable.ic_ltc,
+            "DOGE" to R.drawable.ic_doge,
+        )
+
     fun init() {
         viewModelScope.launch {
             genesisRepo.getAll().collectLatest { blocks ->
-                state = state.copy(allBlocks = blocks)
+                val allBlocks =
+                    blocks.map {
+                        it.setIcon(iconResIds[it.currency.code])
+                        it
+                    }
+                state = state.copy(allBlocks = allBlocks)
             }
         }
     }
