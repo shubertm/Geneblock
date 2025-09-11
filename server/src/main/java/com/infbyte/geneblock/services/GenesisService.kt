@@ -1,6 +1,5 @@
 package com.infbyte.geneblock.services
 
-import blocks
 import com.infbyte.shared.models.Block
 import com.infbyte.shared.models.Currency
 import kotlinx.coroutines.CoroutineScope
