@@ -22,5 +22,4 @@ dependencyResolutionManagement {
 rootProject.name = "Geneblock"
 include(":app")
 include(":shared")
-include(":geneblock")
 include(":server")
