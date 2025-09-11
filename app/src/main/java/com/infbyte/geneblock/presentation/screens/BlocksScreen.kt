@@ -25,10 +25,11 @@ fun BlocksScreen(
             Block(currency = Currency("Bitcoin", "BTC")),
             Block(currency = Currency("Bitcoin", "BTC")),
         ),
+    onClickBlock: (Block) -> Unit = {},
 ) {
     LazyColumn(Modifier.systemBarsPadding()) {
         items(blocks) {
-            Block(it)
+            Block(it) { onClickBlock(it) }
         }
     }
 }
