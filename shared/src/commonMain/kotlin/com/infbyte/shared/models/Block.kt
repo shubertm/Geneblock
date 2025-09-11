@@ -17,7 +17,7 @@ data class Block(
     var iconResId: Int? = null
         private set
 
-    fun setIcon(iconResId: Int) {
+    fun setIcon(iconResId: Int?) {
         this.iconResId = iconResId
     }
 
