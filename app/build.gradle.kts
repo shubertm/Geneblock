@@ -42,11 +42,29 @@ android {
     }
 
     buildTypes {
+        debug {
+            manifestPlaceholders.putAll(
+                arrayOf(
+                    "appIcon" to "@mipmap/geneblock_debug",
+                    "appRoundIcon" to "@mipmap/geneblock_debug_round",
+                    "appName" to "@string/app_name_debug",
+                ),
+            )
+        }
         release {
             isMinifyEnabled = false
+
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro",
+            )
+
+            manifestPlaceholders.putAll(
+                arrayOf(
+                    "appIcon" to "@mipmap/geneblock",
+                    "appRoundIcon" to "@mipmap/geneblock_round",
+                    "appName" to "@string/app_name",
+                ),
             )
         }
     }

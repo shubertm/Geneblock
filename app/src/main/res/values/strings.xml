@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Geneblock</string>
+    <string name="app_name_debug">Geneblock [Debug]</string>
 </resources>
