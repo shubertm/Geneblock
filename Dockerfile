@@ -9,11 +9,12 @@ COPY ./gradlew /home/gradle/src/gradlew
 COPY ./build.gradle.kts /home/gradle/src/build.gradle.kts
 COPY .editorconfig /home/gradle/src/.editorconfig
 
+RUN mkdir /home/gradle/src/app
+
 WORKDIR /home/gradle/src/server
 RUN gradle buildFatJar --no-daemon
 
 FROM openjdk:21
 EXPOSE 8080:8080
-RUN mkdir /app
-COPY --from=build /home/gradle/src/server/build/libs/*.jar /app/geneblock.jar
-ENTRYPOINT ["java","-jar","/app/geneblock.jar"]
+COPY --from=build /home/gradle/src/server/build/libs/*.jar /home/gradle/src/app/geneblock.jar
+ENTRYPOINT ["java","-jar","/home/gradle/src/app/geneblock.jar"]
