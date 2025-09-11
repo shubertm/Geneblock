@@ -20,7 +20,6 @@ class GenesisService(
     init {
         CoroutineScope(iODispatcher).launch {
             init()
-            blocks.forEach { insert(it) }
         }
     }
 
