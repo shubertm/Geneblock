@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="geneblock_debug_background">#FFFFFF</color>
+    <color name="geneblock_debug_background">#B8BDBD</color>
 </resources>
