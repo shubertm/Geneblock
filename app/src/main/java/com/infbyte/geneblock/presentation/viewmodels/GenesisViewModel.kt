@@ -47,4 +47,10 @@ class GenesisViewModel(
             }
         }
     }
+
+    fun onClickBlock(block: Block) {
+        viewModelScope.launch {
+            state = state.copy(currentBlock = block)
+        }
+    }
 }

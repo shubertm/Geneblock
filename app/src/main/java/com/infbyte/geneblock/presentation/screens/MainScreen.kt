@@ -33,7 +33,14 @@ fun MainScreen() {
             ),
         ) {
             composable(Screens.BLOCKS) {
-                BlocksScreen(genesisViewModel.state.allBlocks)
+                BlocksScreen(genesisViewModel.state.allBlocks) {
+                    genesisViewModel.onClickBlock(it)
+                    navController.navigate(Screens.BLOCK)
+                }
+            }
+
+            composable(Screens.BLOCK) {
+                BlockScreen(genesisViewModel.state.currentBlock)
             }
         }
     }
