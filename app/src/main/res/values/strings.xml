@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">Geneblock</string>
     <string name="app_name_debug">Geneblock [Debug]</string>
+    <string name="geneblock_hash">Hash</string>
+    <string name="geneblock_distance">Distance</string>
+    <string name="geneblock_size">Size</string>
+    <string name="geneblock_txs">Transactions</string>
+    <string name="geneblock_miner">Miner</string>
+    <string name="geneblock_reward">Reward</string>
 </resources>

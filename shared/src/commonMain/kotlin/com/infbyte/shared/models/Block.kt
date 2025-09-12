@@ -13,7 +13,9 @@ data class Block(
     val miner: String = "",
     val reward: Float = 0F,
 ) {
-    private var distance: Long = 0L
+    var distance: Long = 0L
+        private set
+
     var iconResId: Int? = null
         private set
 

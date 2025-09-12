@@ -16,7 +16,7 @@
 
 <p id="app_icon" align="center">
 <img
-    src="https://github.com/shubertm/geneblock/blob/main/geneblock.svg"
+    src="https://github.com/shubertm/Geneblock/blob/main/app/src/main/geneblock.svg"
     width="60" height="60" alt="Geneblock icon"
     style="border-radius:10px;"/>
 </p>
