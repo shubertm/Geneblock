@@ -17,7 +17,22 @@ fun MainScreen() {
     val genesisViewModel: GenesisViewModel = koinViewModel()
 
     LaunchedEffect("") {
-        genesisViewModel.init()
+        genesisViewModel.fetchAllBlocks()
+    }
+
+    if (genesisViewModel.sideEffect.requestTimeout) {
+        TimeoutScreen {
+            genesisViewModel.fetchAllBlocks()
+            genesisViewModel.onRefresh()
+        }
+        return
+    }
+    if (genesisViewModel.sideEffect.connectivityOut) {
+        ConnectivityOutScreen {
+            genesisViewModel.fetchAllBlocks()
+            genesisViewModel.onRefresh()
+        }
+        return
     }
 
     Scaffold(

@@ -7,4 +7,8 @@
     <string name="geneblock_txs">Transactions</string>
     <string name="geneblock_miner">Miner</string>
     <string name="geneblock_reward">Reward</string>
+    <string name="geneblock_no_network">No internet connection</string>
+    <string name="geneblock_timeout">Request timeout</string>
+    <string name="geneblock_try_again">Try again</string>
+    <string name="geneblock_connectivity_out">Service is offline, come back later.</string>
 </resources>
