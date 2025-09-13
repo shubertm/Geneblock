@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.infbyte.geneblock.R
 import com.infbyte.geneblock.data.repo.Repo
 import com.infbyte.shared.models.Block
+import com.infbyte.shared.network.NetworkResult
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -20,10 +21,22 @@ data class GenesisState(
     }
 }
 
+data class GenesisSideEffect(
+    val requestTimeout: Boolean = false,
+    val connectivityOut: Boolean = false,
+    val message: String = "",
+) {
+    companion object {
+        val INITIAL_EFFECT = GenesisSideEffect()
+    }
+}
+
 class GenesisViewModel(
     private val genesisRepo: Repo,
 ) : ViewModel() {
     var state by mutableStateOf(GenesisState.INITIAL_STATE)
+        private set
+    var sideEffect by mutableStateOf(GenesisSideEffect.INITIAL_EFFECT)
         private set
 
     private val iconResIds =
@@ -35,16 +48,35 @@ class GenesisViewModel(
             "DOGE" to R.drawable.ic_doge,
         )
 
-    fun init() {
+    fun fetchAllBlocks() {
         viewModelScope.launch {
-            genesisRepo.getAll().collectLatest { blocks ->
-                val allBlocks =
-                    blocks.map {
-                        it.setIcon(iconResIds[it.currency.code])
-                        it
-                    }
-                state = state.copy(allBlocks = allBlocks)
-            }
+            genesisRepo
+                .getAll(
+                    onNetworkResult = { networkResult ->
+                        when (networkResult) {
+                            NetworkResult.Timeout -> {
+                                sideEffect = sideEffect.copy(requestTimeout = true)
+                            }
+                            NetworkResult.ConnectivityOut -> {
+                                sideEffect = sideEffect.copy(connectivityOut = true)
+                            }
+                            NetworkResult.Success -> {}
+                        }
+                    },
+                ).collectLatest { blocks ->
+                    val allBlocks =
+                        blocks.map {
+                            it.setIcon(iconResIds[it.currency.code])
+                            it
+                        }
+                    state = state.copy(allBlocks = allBlocks)
+                }
+        }
+    }
+
+    fun onRefresh() {
+        viewModelScope.launch {
+            sideEffect = sideEffect.copy(requestTimeout = false, connectivityOut = false)
         }
     }
 
