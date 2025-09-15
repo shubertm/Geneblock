@@ -38,7 +38,7 @@ jobs:
       - name: Build Release APK
         env:
           VERSION_NAME: ${{ github.ref_name }}-rc
-          SIGNING_KEYSTORE_PASSWORD: ${{ secrets.1KEYSTORE_PASS }}
+          SIGNING_KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASS }}
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
           KEY_PASSWORD: ${{ secrets.KEY_PASS }}
           BANNER_AD_UNIT_ID: ${{ secrets.BANNER_AD_UNIT_ID }}
