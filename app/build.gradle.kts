@@ -43,7 +43,7 @@ android {
 
     signingConfigs {
         create("release") {
-            storeFile = file("app/src/main/gene_release_keystore.jks")
+            storeFile = file("./src/main/gene_release_keystore.jks")
             storePassword = System.getenv("KEYSTORE_PASS") ?: keyStorePass
             keyPassword = System.getenv("KEY_PASS") ?: keyPass
             keyAlias = System.getenv("KEY_ALIAS") ?: geneKeyAlias
@@ -86,12 +86,6 @@ android {
     }
     buildFeatures {
         compose = true
-    }
-
-    java {
-        toolchain {
-            languageVersion = JavaLanguageVersion.of(21)
-        }
     }
 }
 
