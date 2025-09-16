@@ -52,9 +52,9 @@ jobs:
       - name: Build Release AAB
         env:
           VERSION_NAME: ${{ github.ref_name }}-rc
-          SIGNING_KEYSTORE_PASSWORD: ${{ secrets.SIGNING_KEYSTORE_PASSWORD }}
+          KEYSTORE_PASS: ${{ secrets.SIGNING_KEYSTORE_PASSWORD }}
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
-          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+          KEY_PASS: ${{ secrets.KEY_PASSWORD }}
           BANNER_AD_UNIT_ID: ${{ secrets.BANNER_AD_UNIT_ID }}
           BANNER_1_AD_UNIT_ID: ${{ secrets.BANNER_1_AD_UNIT_ID }}
           ADMOB_APP_ID: ${{ secrets.ADMOB_APP_ID }}
