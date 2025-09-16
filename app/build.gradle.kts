@@ -20,7 +20,7 @@ val bannerAdUnitId: String? = properties.getProperty("banner.ad.unit.id")
 val banner1AdUnitId: String? = properties.getProperty("banner.1.ad.unit.id")
 val admobAppId: String? = properties.getProperty("admob.app.id")
 val geneKeyAlias: String? = properties.getProperty("key.alias")
-val signingKeyStorePass: String? = properties.getProperty("key.store.pass")
+val keyStorePass: String? = properties.getProperty("key.store.pass")
 val keyPass: String? = properties.getProperty("key.pass")
 val localVersion: String? = properties.getProperty("local.version")
 val geneVersionCode: Int =
@@ -41,6 +41,15 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+        create("release") {
+            storeFile = file("./src/main/gene_release_keystore.jks")
+            storePassword = System.getenv("KEYSTORE_PASS") ?: keyStorePass
+            keyPassword = System.getenv("KEY_PASS") ?: keyPass
+            keyAlias = System.getenv("KEY_ALIAS") ?: geneKeyAlias
+        }
+    }
+
     buildTypes {
         debug {
             manifestPlaceholders.putAll(
@@ -52,7 +61,8 @@ android {
             )
         }
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            isShrinkResources = true
 
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -66,14 +76,13 @@ android {
                     "appName" to "@string/app_name",
                 ),
             )
+
+            signingConfig = signingConfigs.getByName("release")
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-    kotlinOptions {
-        jvmTarget = "11"
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
     buildFeatures {
         compose = true
