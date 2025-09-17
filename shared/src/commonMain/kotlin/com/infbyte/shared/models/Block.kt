@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 data class Block(
     val hash: String = "",
     val date: Long = 0L,
-    val size: Int = 0,
+    val size: Float = 0F,
     val currency: Currency = Currency(),
     val transactions: Int = 0,
     val miner: String = "",
