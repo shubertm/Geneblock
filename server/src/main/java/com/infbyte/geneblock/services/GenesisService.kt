@@ -35,7 +35,7 @@ class GenesisService(
                 val statement = connection.prepareStatement(INSERT_BLOCK)
                 statement.setString(1, item.hash)
                 statement.setTimestamp(2, Timestamp(item.date))
-                statement.setInt(3, item.size)
+                statement.setFloat(3, item.size)
                 statement.setString(4, item.currency.name)
                 statement.setString(5, item.currency.code)
                 statement.setInt(6, item.transactions)
@@ -69,7 +69,7 @@ class GenesisService(
             while (resultSet.next()) {
                 val hash = resultSet.getString(HASH)
                 val date = resultSet.getTimestamp(DATE).time
-                val size = resultSet.getInt(SIZE)
+                val size = resultSet.getFloat(SIZE)
                 val currencyName = resultSet.getString(CURRENCY_NAME)
                 val currencyCode = resultSet.getString(CURRENCY_CODE)
                 val transactions = resultSet.getInt(TRANSACTIONS)
